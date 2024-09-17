@@ -28,6 +28,8 @@ class HomeView extends StackedView<HomeViewModel> {
         children: [
           Expanded(
               child: PageView(
+            key: const PageStorageKey('profile_view'),
+            restorationId: 'profile_view',
             controller: viewModel.pageController,
             onPageChanged: (value) {
               viewModel.selectedTabBar = BottomTab.values[value];

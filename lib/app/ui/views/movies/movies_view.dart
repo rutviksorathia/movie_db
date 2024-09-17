@@ -14,7 +14,7 @@ class MoviesView extends StackedView<MoviesViewModel> {
 
   @override
   void onViewModelReady(MoviesViewModel viewModel) {
-    viewModel.fetchMovieList(offset: 1);
+    viewModel.fetchMovieList();
     // TODO: implement onViewModelReady
     super.onViewModelReady(viewModel);
   }
@@ -86,7 +86,9 @@ class MoviesView extends StackedView<MoviesViewModel> {
                                   color: Colors.transparent,
                                 ),
                                 child: const Center(
-                                    child: CircularProgressIndicator()))
+                                  child: CircularProgressIndicator(),
+                                ),
+                              )
                             : Container(),
                       ],
                     ),

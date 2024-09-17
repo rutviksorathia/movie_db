@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:movie_db/app/ui/views/home/home_view.dart';
+import 'package:movie_db/app/ui/views/movie_details/movie_details_view.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const GetMaterialApp(
-      home: HomeView(),
+      home: MovieDetailsView(),
     );
   }
 }

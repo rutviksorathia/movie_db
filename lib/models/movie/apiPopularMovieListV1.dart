@@ -1,51 +1,48 @@
 part of 'movie.dart';
 
-class ApiMovieListV1RequestQuery {
+class ApiPopularMovieListV1RequestQuery {
   int page;
-  String sortBy;
   String apiKey;
 
-  ApiMovieListV1RequestQuery({
+  ApiPopularMovieListV1RequestQuery({
     this.page = 1,
     this.apiKey = '55903b004b65252bf433fb4218601d2c',
-    this.sortBy = 'popularity.desc',
   });
 
   Map<String, dynamic> toMap() {
     return {
       'page': page,
       'api_key': apiKey,
-      'sort_by': sortBy,
     };
   }
 }
 
-Future<ApiMovieListV1ResponseBody> apiMovieListV1({
-  required ApiMovieListV1RequestQuery query,
+Future<ApiPopularMovieListV1ResponseBody> apiPopularMovieListV1({
+  required ApiPopularMovieListV1RequestQuery query,
 }) async {
   final response = await sendRequest.get(
-    'discover/movie',
+    'movie/popular',
     query: query.toMap(),
   );
 
-  return ApiMovieListV1ResponseBody.fromMap(jsonDecode(response.body));
+  return ApiPopularMovieListV1ResponseBody.fromMap(jsonDecode(response.body));
 }
 
-class ApiMovieListV1ResponseBody {
+class ApiPopularMovieListV1ResponseBody {
   int page;
   List<Movie> results;
   int totalPages;
   int totalResults;
 
-  ApiMovieListV1ResponseBody({
+  ApiPopularMovieListV1ResponseBody({
     required this.page,
     required this.results,
     required this.totalPages,
     required this.totalResults,
   });
 
-  factory ApiMovieListV1ResponseBody.fromMap(Map<String, dynamic> map) {
-    return ApiMovieListV1ResponseBody(
+  factory ApiPopularMovieListV1ResponseBody.fromMap(Map<String, dynamic> map) {
+    return ApiPopularMovieListV1ResponseBody(
       page: map['page'],
       totalPages: map['total_pages'],
       totalResults: map['total_results'],

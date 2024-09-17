@@ -36,8 +36,8 @@ class MoviesViewModel extends BaseViewModel {
 
     try {
       await Future.delayed(const Duration(milliseconds: 500));
-      var response = await apiMovieListV1(
-          query: ApiMovieListV1RequestQuery(page: profilePage));
+      var response = await apiNowPlayingMovieListV1(
+          query: ApiNowPlayingMovieListV1RequestQuery(page: profilePage));
 
       movies.addAll(response.results);
 

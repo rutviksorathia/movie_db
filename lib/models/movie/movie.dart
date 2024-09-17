@@ -7,3 +7,4 @@ part 'modelMovie.dart';
 part 'apiNowPlayingMovieListV1.dart';
 part 'apiPopularMovieListV1.dart';
 part 'apiTopRatedMovieListV1.dart';
+part 'apiMovieSearchListV1.dart';

@@ -4,9 +4,9 @@ class Movie {
   int id;
   String title;
   bool adult;
-  String backdropPath;
+  String? backdropPath;
   String originalLanguage;
-  String posterPath;
+  String? posterPath;
   String originalTitle;
   String overview;
   double popularity;
@@ -19,9 +19,9 @@ class Movie {
     required this.id,
     required this.title,
     required this.adult,
-    required this.backdropPath,
+    this.backdropPath,
     required this.originalLanguage,
-    required this.posterPath,
+    this.posterPath,
     required this.originalTitle,
     required this.overview,
     required this.popularity,
@@ -36,9 +36,9 @@ class Movie {
       id: map['id'],
       title: map['title'].toString(),
       adult: map['adult'],
-      backdropPath: map['backdrop_path'].toString(),
+      backdropPath: map['backdrop_path']?.toString(),
       originalLanguage: map['original_language'].toString(),
-      posterPath: map['poster_path'].toString(),
+      posterPath: map['poster_path']?.toString(),
       originalTitle: map['original_title'].toString(),
       overview: map['overview'].toString(),
       popularity: double.tryParse(map['popularity'].toString()) ?? 0,

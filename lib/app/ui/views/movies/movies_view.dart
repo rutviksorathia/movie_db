@@ -140,6 +140,37 @@ class MoviesView extends StackedView<MoviesViewModel> {
                         )
                       ],
                     ),
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        ...viewModel.movies.map(
+                          (e) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 160,
+                                  width: 250,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  child: Image.network(
+                                    "https://image.tmdb.org/t/p/w500/${e.posterPath}",
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                Text(e.title)
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),

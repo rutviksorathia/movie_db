@@ -43,12 +43,11 @@ class HomeView extends StackedView<HomeViewModel> {
           ClipRect(
             child: BackdropFilter(
               filter: ImageFilter.blur(
-                sigmaX: 13,
-                sigmaY: 13,
+                sigmaX: 26,
+                sigmaY: 26,
               ),
-              child: Container(
+              child: SizedBox(
                 height: kBottomNavigationBarHeight + 30,
-                color: Colors.white,
                 width: double.infinity,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

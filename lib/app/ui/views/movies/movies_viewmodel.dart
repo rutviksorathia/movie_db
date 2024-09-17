@@ -25,6 +25,7 @@ class MoviesViewModel extends BaseViewModel {
   }
 
   Future<void> handleProfileListScrollEnd() async {
+    print(profilePage);
     profilePage++;
     await fetchMovieList(isPaginated: true);
   }

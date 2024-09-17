@@ -11,6 +11,12 @@ class SearchView extends StackedView<SearchViewModel> {
     BuildContext context,
   ) =>
       SearchViewModel();
+  @override
+  void onViewModelReady(SearchViewModel viewModel) {
+    viewModel.fetchSearchMovieList();
+    // TODO: implement onViewModelReady
+    super.onViewModelReady(viewModel);
+  }
 
   @override
   Widget builder(
@@ -69,6 +75,14 @@ class SearchView extends StackedView<SearchViewModel> {
                   ),
                 ),
               ),
+              const SizedBox(height: 12),
+              Column(
+                children: [
+                  ...viewModel.searchMovies.map(
+                    (e) => Text(e.title),
+                  ),
+                ],
+              )
             ],
           ),
         ),

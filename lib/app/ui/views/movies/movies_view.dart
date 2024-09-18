@@ -14,9 +14,9 @@ class MoviesView extends StackedView<MoviesViewModel> {
 
   @override
   void onViewModelReady(MoviesViewModel viewModel) {
-    // viewModel.fetchMovieList();
-    // viewModel.fetchUpComingMovieList();
-    // viewModel.fetchUpTopRelatedMovieList();
+    viewModel.fetchMovieList();
+    viewModel.fetchUpComingMovieList();
+    viewModel.fetchUpTopRelatedMovieList();
     // TODO: implement onViewModelReady
     super.onViewModelReady(viewModel);
   }
@@ -128,32 +128,28 @@ class MoviesView extends StackedView<MoviesViewModel> {
                               ...viewModel.upcomingMovies.map(
                                 (e) => Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: SizedBox(
-                                    width: 250,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 160,
-                                          width: double.infinity,
-                                          clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                          ),
-                                          child: Image.network(
-                                            "https://image.tmdb.org/t/p/w500/${e.posterPath}",
-                                            fit: BoxFit.fitWidth,
-                                          ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 200,
+                                        clipBehavior: Clip.antiAlias,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(16),
                                         ),
-                                        const SizedBox(height: 6),
-                                        Text(
-                                          e.title,
-                                          overflow: TextOverflow.ellipsis,
-                                        )
-                                      ],
-                                    ),
+                                        child: Image.network(
+                                          "https://image.tmdb.org/t/p/w500/${e.backdropPath ?? e.posterPath}",
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 6),
+                                      Text(
+                                        e.title,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
                                   ),
                                 ),
                               )
@@ -187,32 +183,28 @@ class MoviesView extends StackedView<MoviesViewModel> {
                               ...viewModel.topRelatedMovies.map(
                                 (e) => Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: SizedBox(
-                                    width: 250,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 160,
-                                          width: double.infinity,
-                                          clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                          ),
-                                          child: Image.network(
-                                            "https://image.tmdb.org/t/p/w500/${e.posterPath}",
-                                            fit: BoxFit.fitWidth,
-                                          ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 200,
+                                        clipBehavior: Clip.antiAlias,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(16),
                                         ),
-                                        const SizedBox(height: 6),
-                                        Text(
-                                          e.title,
-                                          overflow: TextOverflow.ellipsis,
-                                        )
-                                      ],
-                                    ),
+                                        child: Image.network(
+                                          "https://image.tmdb.org/t/p/w500/${e.backdropPath ?? e.posterPath}",
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 6),
+                                      Text(
+                                        e.title,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
                                   ),
                                 ),
                               )

@@ -8,6 +8,8 @@ class Movie {
   String originalLanguage;
   String? posterPath;
   String originalTitle;
+  List<Genre> genres = [];
+  int? runtime;
   String overview;
   double popularity;
   DateTime releaseDate;
@@ -24,6 +26,8 @@ class Movie {
     this.posterPath,
     required this.originalTitle,
     required this.overview,
+    required this.genres,
+    this.runtime,
     required this.popularity,
     required this.releaseDate,
     required this.video,
@@ -38,7 +42,13 @@ class Movie {
       adult: map['adult'],
       backdropPath: map['backdrop_path']?.toString(),
       originalLanguage: map['original_language'].toString(),
+      genres: map["genres"] != null
+          ? (map["genres"] as List).map((e) => Genre.fromMap(e)).toList()
+          : [],
       posterPath: map['poster_path']?.toString(),
+      runtime: map["runtime"] != null
+          ? int.tryParse(map["runtime"].toString())
+          : null,
       originalTitle: map['original_title'].toString(),
       overview: map['overview'].toString(),
       popularity: double.tryParse(map['popularity'].toString()) ?? 0,
@@ -70,5 +80,22 @@ class Movie {
   @override
   String toString() {
     return toMap().toString();
+  }
+}
+
+class Genre {
+  int id;
+  String name;
+
+  Genre({
+    required this.id,
+    required this.name,
+  });
+
+  factory Genre.fromMap(Map<String, dynamic> map) {
+    return Genre(
+      id: map["id"],
+      name: map["name"],
+    );
   }
 }

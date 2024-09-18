@@ -74,7 +74,7 @@ class SearchViewModel extends BaseViewModel {
     }
   }
 
-  void handleMovieDetailsViewButtonTap() {
-    Get.to(() => const MovieDetailsView());
+  void handleMovieDetailsViewButtonTap(Movie movie) {
+    Get.to(() => MovieDetailsView(movie: movie));
   }
 }

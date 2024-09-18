@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:movie_db/models/movie/movie.dart';
 import 'package:stacked/stacked.dart';
 
 import 'movie_details_viewmodel.dart';
 
 class MovieDetailsView extends StackedView<MovieDetailsViewModel> {
-  const MovieDetailsView({super.key});
+  final Movie movie;
+  const MovieDetailsView({
+    super.key,
+    required this.movie,
+  });
 
   @override
   MovieDetailsViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      MovieDetailsViewModel();
+      MovieDetailsViewModel(movie: movie);
+
+  @override
+  void onViewModelReady(MovieDetailsViewModel viewModel) {
+    viewModel.fetchMovieById();
+    // TODO: implement onViewModelReady
+    super.onViewModelReady(viewModel);
+  }
 
   @override
   Widget builder(
@@ -37,16 +49,20 @@ class MovieDetailsView extends StackedView<MovieDetailsViewModel> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18),
             child: Text(
-              "The Avengers",
+              movie.title,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
             ),
           ),
           const SizedBox(height: 10),
-          Container(
-            height: 200,
-            color: Colors.amberAccent,
+          SizedBox(
+            height: 250,
+            width: double.infinity,
+            child: Image.network(
+              "https://image.tmdb.org/t/p/w500/${movie.backdropPath ?? movie.posterPath}",
+              fit: BoxFit.fitWidth,
+            ),
           ),
           const SizedBox(height: 10),
           Padding(
@@ -54,46 +70,48 @@ class MovieDetailsView extends StackedView<MovieDetailsViewModel> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Science",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                Row(
+                  children: [
+                    if (viewModel.movie.genres.isNotEmpty)
+                      Text(
+                        viewModel.movie.genres.first.name,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    const SizedBox(width: 12),
+                    if (viewModel.movie.runtime != null)
+                      Text(
+                        "${viewModel.movie.runtime!.toString()} Minutes",
+                      )
+                  ],
                 ),
                 const SizedBox(height: 10),
-                const Text(
-                  "dhjwebfuief behfif8ofb vf viehvow vjbvuihv bviuwhgew evbviwefwv ekvifofwv wviqhvoq  vewevoqg",
-                  style: TextStyle(
+                Text(
+                  viewModel.movie.overview,
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Row(
+                Row(
                   children: [
-                    Icon(
-                      Icons.star,
-                      color: Colors.yellow,
-                    ),
-                    Icon(
-                      Icons.star,
-                      color: Colors.yellow,
-                    ),
-                    Icon(
-                      Icons.star,
-                      color: Colors.yellow,
-                    ),
-                    Icon(
-                      Icons.star,
-                      color: Colors.yellow,
-                    ),
-                    Icon(
-                      Icons.star,
-                      color: Colors.yellow,
-                    ),
-                    SizedBox(width: 14),
-                    Text('7/10')
+                    ...viewModel.count.map((e) {
+                      if (e < viewModel.movie.voteAverage / 2) {
+                        return const Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                        );
+                      }
+                      return const Icon(
+                        Icons.star_border,
+                        color: Colors.yellow,
+                      );
+                    }),
+                    const SizedBox(width: 10),
+                    Text('${viewModel.movie.voteAverage.toStringAsFixed(0)}/10')
                   ],
                 ),
                 const SizedBox(height: 10),

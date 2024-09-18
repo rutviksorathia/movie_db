@@ -86,7 +86,7 @@ class SearchView extends StackedView<SearchViewModel> {
                         padding: const EdgeInsets.all(8.0),
                         child: InkWell(
                           onTap: () =>
-                              viewModel.handleMovieDetailsViewButtonTap(),
+                              viewModel.handleMovieDetailsViewButtonTap(e),
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(

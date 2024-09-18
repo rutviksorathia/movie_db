@@ -85,7 +85,8 @@ class MoviesView extends StackedView<MoviesViewModel> {
                                   ),
                                 ),
                               ),
-                              viewModel.busy(viewModel.fetchMovieList)
+                              viewModel.busy(viewModel.fetchMovieList) &&
+                                      viewModel.nowPlayingMoviePage > 1
                                   ? Container(
                                       height: 300,
                                       width: 100,

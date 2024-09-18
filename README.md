@@ -1,6 +1,6 @@
 # Movie DB Flutter App
 
-A Flutter application that allows users to browse movies, view details, and manage a list of favorites. This project uses a third-party API (like The Movie Database API - TMDB) to fetch movie data.
+A Flutter application that allows users to browse movies, view details, and show list of Top Rated movies. This project uses a third-party API (like The Movie Database API - TMDB) to fetch movie data.
 
 ## Requirements
 

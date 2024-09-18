@@ -14,7 +14,6 @@ class SearchView extends StackedView<SearchViewModel> {
   @override
   void onViewModelReady(SearchViewModel viewModel) {
     viewModel.fetchSearchMovieList();
-    // TODO: implement onViewModelReady
     super.onViewModelReady(viewModel);
   }
 
@@ -65,7 +64,10 @@ class SearchView extends StackedView<SearchViewModel> {
                   hintText: 'Search',
                   hintStyle: TextStyle(color: Colors.grey[800]),
                   suffixIcon: IconButton(
-                    onPressed: () {},
+                    onPressed: () => {
+                      viewModel.searchTextController.clear(),
+                      viewModel.notifyListeners(),
+                    },
                     icon: Icon(
                       Icons.clear,
                       color: Colors.grey[400],
@@ -75,50 +77,59 @@ class SearchView extends StackedView<SearchViewModel> {
               ),
             ),
             const SizedBox(height: 12),
-            Expanded(
-              child: SingleChildScrollView(
-                controller: viewModel.searchScrollController,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ...viewModel.searchMovies.map(
-                      (e) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: InkWell(
-                          onTap: () =>
-                              viewModel.handleMovieDetailsViewButtonTap(e),
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: Colors.grey.shade100,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    e.title,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
+            if (viewModel.searchMovies.isNotEmpty)
+              Expanded(
+                child: SingleChildScrollView(
+                  controller: viewModel.searchScrollController,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ...viewModel.searchMovies.map(
+                        (e) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                            onTap: () =>
+                                viewModel.handleMovieDetailsViewButtonTap(e),
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.grey.shade100,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      e.title,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    e.releaseDate.year.toString(),
-                                  )
-                                ],
+                                    Text(
+                                      e.releaseDate.year.toString(),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                ),
+              )
+            else
+              const Expanded(
+                child: Center(
+                  child: Text(
+                    "Write something to search",
+                  ),
                 ),
               ),
-            )
           ],
         ),
       ),

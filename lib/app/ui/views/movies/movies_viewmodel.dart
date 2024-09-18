@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:movie_db/app/ui/views/movie_details/movie_details_view.dart';
 import 'package:movie_db/models/movie/movie.dart';
 import 'package:stacked/stacked.dart';
 
@@ -6,7 +8,7 @@ class MoviesViewModel extends BaseViewModel {
   MoviesViewModel() {
     nowPlayingScrollController.addListener(handleNowPlayingScrollView);
     upcomingScrollController.addListener(handleUpcomingScrollView);
-    topRelatedScrollController.addListener(handleTopRelatedScrollView);
+    topRatedScrollController.addListener(handleTopRelatedScrollView);
   }
   //  Now Playing
 
@@ -53,6 +55,10 @@ class MoviesViewModel extends BaseViewModel {
     } finally {
       setBusyForObject(fetchMovieList, false);
     }
+  }
+
+  void handleMovieDetailsViewButtonTap(Movie movie) {
+    Get.to(() => MovieDetailsView(movie: movie));
   }
 
   // Upcoming Movies
@@ -103,41 +109,41 @@ class MoviesViewModel extends BaseViewModel {
 
   // Top Related
 
-  ScrollController topRelatedScrollController = ScrollController();
-  List<Movie> topRelatedMovies = [];
-  int topRelatedMoviePage = 1;
-  bool isTopRelatedScrollEventDispatched = false;
+  ScrollController topRatedScrollController = ScrollController();
+  List<Movie> topRatedMovies = [];
+  int topRatedMoviePage = 1;
+  bool isTopRatedScrollEventDispatched = false;
 
   void handleTopRelatedScrollView() {
-    if (topRelatedScrollController.position.extentAfter <= 200) {
-      if (!isTopRelatedScrollEventDispatched) {
+    if (topRatedScrollController.position.extentAfter <= 200) {
+      if (!isTopRatedScrollEventDispatched) {
         handleTopRelatedMovieListScrollEnd();
-        isTopRelatedScrollEventDispatched = true;
+        isTopRatedScrollEventDispatched = true;
       }
     } else {
-      isTopRelatedScrollEventDispatched = false;
+      isTopRatedScrollEventDispatched = false;
     }
   }
 
   Future<void> handleTopRelatedMovieListScrollEnd() async {
-    topRelatedMoviePage++;
+    topRatedMoviePage++;
     await fetchUpTopRelatedMovieList(isPaginated: true);
   }
 
   Future<void> fetchUpTopRelatedMovieList({bool isPaginated = false}) async {
-    if (!isPaginated) topRelatedMoviePage = 1;
+    if (!isPaginated) topRatedMoviePage = 1;
 
     setBusyForObject(handleTopRelatedMovieListScrollEnd, true);
 
     try {
       await Future.delayed(const Duration(milliseconds: 500));
       var response = await apiTopRatedMovieListV1(
-          query: ApiTopRatedMovieListV1RequestQuery(page: topRelatedMoviePage));
+          query: ApiTopRatedMovieListV1RequestQuery(page: topRatedMoviePage));
 
       if (isPaginated) {
-        topRelatedMovies.addAll(response.results);
+        topRatedMovies.addAll(response.results);
       } else {
-        topRelatedMovies = response.results;
+        topRatedMovies = response.results;
       }
       notifyListeners();
     } catch (e) {

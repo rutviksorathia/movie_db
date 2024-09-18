@@ -99,3 +99,61 @@ class Genre {
     );
   }
 }
+
+class MovieCredit {
+  int id;
+  List<Crew> crew = [];
+  List<Cast> cast = [];
+
+  MovieCredit({
+    required this.id,
+    required this.crew,
+    required this.cast,
+  });
+
+  factory MovieCredit.fromMap(Map<String, dynamic> map) {
+    return MovieCredit(
+      id: map["id"],
+      cast: map["cast"] != null
+          ? (map["cast"] as List).map((e) => Cast.fromMap(e)).toList()
+          : [],
+      crew: map["crew"] != null
+          ? (map["crew"] as List).map((e) => Crew.fromMap(e)).toList()
+          : [],
+    );
+  }
+}
+
+class Crew {
+  String name;
+  String job;
+
+  Crew({
+    required this.name,
+    required this.job,
+  });
+
+  factory Crew.fromMap(Map<String, dynamic> map) {
+    return Crew(
+      name: map["name"],
+      job: map["job"],
+    );
+  }
+}
+
+class Cast {
+  String name;
+  String character;
+
+  Cast({
+    required this.name,
+    required this.character,
+  });
+
+  factory Cast.fromMap(Map<String, dynamic> map) {
+    return Cast(
+      name: map["name"],
+      character: map["character"],
+    );
+  }
+}
